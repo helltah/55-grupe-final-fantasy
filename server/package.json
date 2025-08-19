@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "55-grupe-final-fantasy": "file:..",
     "express": "^5.1.0"
   }
 }
