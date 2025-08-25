@@ -1,11 +1,9 @@
+import { PublicPageTitle } from "../../components/PublicPageTitle";
+
 export function RegisterPage() {
     return (
         <main className="min-page-height">
-            <div className="container">
-                <div className="row">
-                    <h1 className="col-12 display-1 mb-5">Register title</h1>
-                </div>
-            </div>
+            <PublicPageTitle title="Register" />
                 
             <div className="container">
                 <div className="row">
