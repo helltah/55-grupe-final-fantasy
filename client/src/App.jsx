@@ -6,6 +6,7 @@ import { CategoriesPage } from './pages/public/Categories';
 import { MoviesPage } from './pages/public/Movies';
 import { CategoryInnerPage } from './pages/public/CategoryInner';
 import { MovieInnerPage } from './pages/public/MoviesInner';
+import { RegisterPage } from './pages/public/Register';
 
 export function App() {
   return (
@@ -17,6 +18,7 @@ export function App() {
           <Route path='movies/:movie' element={<MovieInnerPage />} />
           <Route path='categories' element={<CategoriesPage />} />
           <Route path='categories/:category' element={<CategoryInnerPage />} />
+          <Route path='register' element={<RegisterPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>

@@ -1,6 +1,6 @@
 import imgUrl from '../../assets/hero.png';
 
-export function MovieInnerPageName() {
+export function MovieInnerPage() {
     return (
         <main className='min-page-height'>
             <div className="container">

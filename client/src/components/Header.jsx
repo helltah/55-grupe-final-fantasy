@@ -24,6 +24,9 @@ export function Header() {
                 <div className="col-md-3 text-end">
                     <Link to="/admin" className="btn btn-primary">Dashboard</Link>
                 </div>
+                <div className="col-md-3 text-end">
+                    <Link to="/register" className="btn btn-primary">Register</Link>
+                </div>
             </header>
         </div>
     );
