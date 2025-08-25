@@ -1,3 +1,5 @@
+import { PublicPageTitle } from "../../components/PublicPageTitle";
+
 export function LoginPage() {
     return (
         <main className="min-page-height">
