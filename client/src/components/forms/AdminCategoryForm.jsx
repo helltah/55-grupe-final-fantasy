@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 export function AdminCategoryForm({ category }) {
-    const [title, setTitle] = useState(category.title ?? '');
-    const [url, setUrl] = useState(category.url ?? '');
-    const [description, setDescription] = useState(category.description ?? '');
-    const [status, setStatus] = useState(category.status ?? 'draft');
+    const [title, setTitle] = useState(category?.title ?? '');
+    const [url, setUrl] = useState(category?.url ?? '');
+    const [description, setDescription] = useState(category?.description ?? '');
+    const [status, setStatus] = useState(category?.status ?? 'draft');
     
     function handleFormSubmit(e) {
         e.preventDefault();
