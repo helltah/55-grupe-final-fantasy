@@ -10,10 +10,14 @@ export function AdminMovieForm() {
     const [minutes, setMinutes] = useState(0);
     const [category, setCategory] = useState(0);
     const [realeaseDate, setRealeaseDate] = useState('');
-    const [rating, setrating] = useState(50);
+    const [rating, setRating] = useState(50);
     const [status, setStatus] = useState('draft');
 
-    
+    const categories = [
+        {id: 1, name: 'Action'},
+        {id: 2, name: 'Crime'},
+        {id: 3, name: 'Documentary'},
+    ];
 //     const movie = {
 //         img: '/vite.svg',
 //         title: 'Action',
@@ -66,32 +70,29 @@ export function AdminMovieForm() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" id="category">
-                        <option value="0">-- choose</option>
-                        <option value="8">Action</option>
-                        <option value="9">Adventure</option>
-                        <option value="10">Animation</option>
-                        <option value="11">Comedy</option>
-                        <option value="12">Crime</option>
-                        <option value="13">Documentary</option>
-                    </select>
+                    <select onChange={e => setCategory(e.target.value)} value={category} className="form-select" id="category"> 
+                        <option value={0}>-- choose</option>
+                        {categories.map(cat => <option  key={cat.id} value={cat.id}>{cat.name}</option>)}
+                    </select>  
                 </div>
                 <div className="mb-3">
                     <label htmlFor="release_date" className="form-label">Release date</label>
-                    <input type="date" className="form-control" id="release_date" />
+                    <input onChange={e => { 
+                        setRealeaseDate(e.target.value)
+                    }} value={realeaseDate} type="date" className="form-control" id="release_date" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="rating" className="form-label">Rating</label>
-                    <input type="number" min="1" max="5" step="0.1" className="form-control" id="rating" />
+                    <input onChange={e => setRating(e.target.value * 10)} value={rating / 10} type="number" min="1" max="5" step="0.1" className="form-control" id="rating" />
                 </div>
-                <div className="mb-3">
+                 <div className="mb-3">
                     <label className="form-label">Status</label>
                     <div className="form-check">
-                        <input type="radio" name="radios" className="form-check-input" id="status_published" />
+                        <input onChange={() => setStatus('published')} checked={status === 'published' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_published" />
                         <label className="form-check-label" htmlFor="status_published">Published</label>
                     </div>
                     <div className="form-check">
-                        <input type="radio" name="radios" className="form-check-input" id="status_draft" checked="" />
+                        <input onChange={() => setStatus('draft')} checked={status === 'draft' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_draft" />
                         <label className="form-check-label" htmlFor="status_draft">Draft</label>
                     </div>
                 </div>
