@@ -1,41 +1,31 @@
 import { useState } from 'react';
 import defaultImg from '../../assets/default.png';
 
-export function AdminMovieForm() {
-    const [img, setImg] = useState('');
-    const [title, setTitle] = useState('');
-    const [url, setUrl] = useState('');
-    const [description, setDescription] = useState('');
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [category, setCategory] = useState(0);
-    const [realeaseDate, setRealeaseDate] = useState('');
-    const [rating, setRating] = useState(50);
-    const [status, setStatus] = useState('draft');
+export function AdminMovieForm({ movie }) {
+    const [img, setImg] = useState(movie?.img ?? '');
+    const [title, setTitle] = useState(movie?.title ?? '');
+    const [url, setUrl] = useState(movie?.url ?? '');
+    const [description, setDescription] = useState(movie?.description ?? '');
+    const [hours, setHours] = useState(movie?.duration ? (movie.duration - movie.duration % 60) / 60 : 0);
+    const [minutes, setMinutes] = useState(movie?.duration ? movie.duration % 60 : 0);
+    const [categoryId, setCategoryId] = useState(movie?.categoryId ?? '-- choose') ;
+    const [realeaseDate, setRealeaseDate] = useState(movie?.realeaseDate ?? '');
+    const [rating, setRating] = useState(movie?.rating ?? 50);
+    const [status, setStatus] = useState(movie?.status ?? 'draft');
 
     const categories = [
         {id: 1, name: 'Action'},
         {id: 2, name: 'Crime'},
         {id: 3, name: 'Documentary'},
     ];
-//     const movie = {
-//         img: '/vite.svg',
-//         title: 'Action',
-//         url: 'action',
-//         description: 'Very action, much movie',
-//         duration: 122,
-//         category: 'Action',
-//         releaseDate: '2025-06-07',
-//         rating: 46,
-//         status: 'published',
-// };
+
     return (
          <>
             <form className="col-12 col-md-9 col-lg-6 mb-5">
                 <img id="img_preview" className="d-block w-100 object-fit-contain"
                     style={{ height: '20rem', backgroundColor: '#eee' }}
                     src={img ? img : defaultImg} alt="Movie thumbnail" />
-                <p id="img_path">/img/default.png</p>
+                <p id="img_path">{img}</p>
                 <input type="file" className="form-control" id="img" name="img" />
             </form>
 
@@ -70,9 +60,9 @@ export function AdminMovieForm() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select onChange={e => setCategory(e.target.value)} value={category} className="form-select" id="category"> 
-                        <option value={0}>-- choose</option>
-                        {categories.map(cat => <option  key={cat.id} value={cat.id}>{cat.name}</option>)}
+                    <select onChange={e => setCategoryId(e.target.value)} value={categoryId} className="form-select" id="category"> 
+                        <option value="-- choose">-- choose</option>
+                        {categories.map(cat => <option  key={cat.id} value={cat.name}>{cat.name}</option>)}
                     </select>  
                 </div>
                 <div className="mb-3">
@@ -88,11 +78,11 @@ export function AdminMovieForm() {
                  <div className="mb-3">
                     <label className="form-label">Status</label>
                     <div className="form-check">
-                        <input onChange={() => setStatus('published')} checked={status === 'published' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_published" />
+                        <input onChange={() => setStatus('published')} checked={status === 'published' ? 'checked' : movie?.img ?? ''} type="radio" name="radios" className="form-check-input" id="status_published" />
                         <label className="form-check-label" htmlFor="status_published">Published</label>
                     </div>
                     <div className="form-check">
-                        <input onChange={() => setStatus('draft')} checked={status === 'draft' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_draft" />
+                        <input onChange={() => setStatus('draft')} checked={status === 'draft' ? 'checked' : movie?.img ?? ''} type="radio" name="radios" className="form-check-input" id="status_draft" />
                         <label className="form-check-label" htmlFor="status_draft">Draft</label>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ import { AdminNewMoviePage } from './pages/admin/movies/NewMovie';
 import { AdminViewMoviePage } from './pages/admin/movies/ViewMovie';
 import { AdminMoviesPublishedPage } from './pages/admin/movies/MoviesPublished';
 import { AdminMoviesDraftPage } from './pages/admin/movies/MoviesDraft';
+import { AdminEditMoviePage } from './pages/admin/movies/EditMovie';
 
 export function App() {
   return (
@@ -42,7 +43,7 @@ export function App() {
           <Route path='/admin/movies' element={<AdminMoviesAllPage />} />
           <Route path='/admin/movies/new' element={<AdminNewMoviePage />} />
           <Route path='/admin/movies/:movie' element={<AdminViewMoviePage />} />
-          <Route path='/admin/movies/:movie/edit' element={<AdminEditCategoryPage />} />
+          <Route path='/admin/movies/:movie/edit' element={<AdminEditMoviePage />} />
           <Route path='/admin/movies/published' element={<AdminMoviesPublishedPage />} />
           <Route path='/admin/movies/draft' element={<AdminMoviesDraftPage />} />
           
