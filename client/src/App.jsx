@@ -22,6 +22,7 @@ import { AdminViewMoviePage } from './pages/admin/movies/ViewMovie';
 import { AdminMoviesPublishedPage } from './pages/admin/movies/MoviesPublished';
 import { AdminMoviesDraftPage } from './pages/admin/movies/MoviesDraft';
 import { AdminEditMoviePage } from './pages/admin/movies/EditMovie';
+import { LogoutPage } from './pages/public/Logout';
 
 export function App() {
   return (
@@ -35,6 +36,7 @@ export function App() {
           <Route path='/categories/:category' element={<CategoryInnerPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route path='/login' element={<LoginPage />} />
+          <Route path='/logout' element={<LogoutPage />} />
         </Route>
         
         <Route element={<AdminLayout />}>

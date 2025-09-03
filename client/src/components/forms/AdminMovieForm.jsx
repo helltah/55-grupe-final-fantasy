@@ -29,7 +29,7 @@ export function AdminMovieForm({ movie }) {
                 <input type="file" className="form-control" id="img" name="img" />
             </form>
 
-            <form className="col-12 col-md-9 col-lg-6">
+            <form className="col-12 col-md-9 col-lg-6 mb-5">
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input onChange={e => setTitle(e.target.value)} value={title}
