@@ -1,4 +1,4 @@
-export function AdminDashboardPage() {
+export function AdminDashBoardPage() {
     return (
     <main>
         CONTENT
