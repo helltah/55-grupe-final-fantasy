@@ -1,7 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import { postRegister } from './src/api/public/postRegister.js';
+import { postLogin } from './src/api/public/postLogin.js';
 
 const app = express();
+
+app.use(express.json());
+app.use(cors());
 
 app.get('/', (req, res) => {
     return res.json({
@@ -10,14 +15,8 @@ app.get('/', (req, res) => {
     });
 });
 
-
 app.post('/api/register', postRegister);
-app.get('/api/register', (req, res) => {
-    return res.json({
-        status: 'error',
-        message: 'Nothing to get from register API',
-    });
-});
+app.post('/api/login', postLogin);
 
 app.use((err, req, res, next) => {
     console.log(err);
