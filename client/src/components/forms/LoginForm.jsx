@@ -1,17 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../context/user/UserContext";
-import { useState } from "react";
 
 export function LoginForm() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const { login } = useContext(UserContext);
 
     const [formErr, setFormErr] = useState('');
-    
+
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
     const [usernameOrEmailErr, setUsernameOrEmailErr] = useState('');
-    
+
     const [password, setPassword] = useState('');
     const [passwordErr, setPasswordErr] = useState('');
 
@@ -29,6 +28,7 @@ export function LoginForm() {
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',
             body: JSON.stringify({
                 usernameOrEmail,
                 password,
@@ -44,28 +44,30 @@ export function LoginForm() {
                         setUsernameOrEmailErr(data.msg.usernameOrEmail);
                     }
                     if (data.msg.password) {
-                        setPasswordErr(data.msg.password)
+                        setPasswordErr(data.msg.password);
                     }
                 } else {
-                    // login()
-                    navigate('/login');
+                    if (data.user) {
+                        login(data.user.email, data.user.id);
+                    }
+                    navigate('/admin');
                 }
             })
             .catch(console.error);
     }
-    
+
     return (
         <form onSubmit={handleFormSubmit} className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
             {formErr && <div className="alert alert-danger">{formErr}</div>}
             <div className="mb-4">
                 <label htmlFor="username_or_email" className="form-label">Username or Email</label>
-                <input onChange={e => setUsernameOrEmail(e.target.value)} value={usernameOrEmail} id="username_or_email" 
+                <input onChange={e => setUsernameOrEmail(e.target.value)} value={usernameOrEmail} id="username_or_email"
                     type="text" className={"form-control fs-5" + (usernameOrEmailErr ? ' is-invalid' : '')} required="" />
                 <div className="invalid-feedback">{usernameOrEmailErr}</div>
             </div>
             <div className="mb-4">
                 <label htmlFor="password" className="form-label">Password</label>
-                <input onChange={e => setPassword(e.target.value)} value={password} id="password" type="password" 
+                <input onChange={e => setPassword(e.target.value)} value={password} id="password" type="password"
                     className={"form-control fs-5" + (passwordErr ? ' is-invalid' : '')} required="" />
                 <div className="invalid-feedback">{passwordErr}</div>
             </div>

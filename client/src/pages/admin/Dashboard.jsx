@@ -1,7 +1,12 @@
-export function AdminDashBoardPage() {
+import { useContext } from "react"
+import { UserContext } from "../../context/user/UserContext";
+
+export function AdminDashBoardPage() { 
+    const { email } = useContext(UserContext);
+    
     return (
-    <main>
-        CONTENT
-    </main>
-    )
+        <main>
+            <p>Email: {email}</p>
+        </main>
+    );
 }

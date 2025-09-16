@@ -2,12 +2,12 @@ export function MoviesFilter() {
     return (
         <div className="container mb-5">
             <form className="row g-3">
-                <div class="col-12 col-xl-4">
-                    <label for="title" className="form-label">Pavadinimas</label>
+                <div className="col-12 col-xl-4">
+                    <label htmlFor="title" className="form-label">Pavadinimas</label>
                     <input type="text" className="form-control" id="title" placeholder="Filtruoti pagal pavadinimą ar aprašą" />
                 </div>
                 <div className="col-12 col-md-4 col-xl-2">
-                    <label for="duration" className="form-label">Trukmė</label>
+                    <label htmlFor="duration" className="form-label">Trukmė</label>
                     <select id="duration" className="form-control" name="duration">
                         <option value="0">Visi</option>
                         <option value="1">0+ hour</option>
@@ -18,17 +18,18 @@ export function MoviesFilter() {
                     </select>
                 </div>
                 <div className="col-12 col-md-4 col-xl-2">
-                    <label for="category" class="form-label">Kategorija</label>
-                    <select id="category" class="form-control" name="category">
+                    <label htmlFor="category" className="form-label">Kategorija</label>
+                    <select id="category" className="form-control" name="category">
                         <option value="0">Visos</option>
-                        <option value="animation">Animation</option>
-                        <option value="documentary">Documentary</option>
                         <option value="action">Action</option>
+                        <option value="animation">Animation</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="crime">Crime</option>
                     </select>
                 </div>
                 <div className="col-12 col-md-4 col-xl-2">
-                    <label for="rating" class="form-label">Reitingas</label>
-                    <select id="rating" class="form-control" name="rating">
+                    <label htmlFor="rating" className="form-label">Reitingas</label>
+                    <select id="rating" className="form-control" name="rating">
                         <option value="0">Visi</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
@@ -41,5 +42,5 @@ export function MoviesFilter() {
                 </div>
             </form>
         </div>
-    )
+    );
 }
