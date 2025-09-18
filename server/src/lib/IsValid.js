@@ -117,15 +117,19 @@ export class IsValid {
         if (typeof text !== 'string') {
             return [true, 'El. pastas turi buti tekto tipo.'];
         }
+
         if (text.length < 6) {
             return [true, 'El. pastas negali buti trumpesnis nei 6 simboliai.'];
         }
+
         if (text.length > 50) {
             return [true, 'El. pastas negali buti ilgesnis nei 50 simboliu.'];
         }
+
         if (!text.includes('@')) {
             return [true, 'El. pastas privalo tureti simboli "@".'];
         }
+
         return [false, ''];
     }
 
@@ -152,7 +156,7 @@ export class IsValid {
 
         return [false, ''];
     }
-    
+
     static numberInteger(n) {
         if (!Number.isInteger(n)) {
             return [true, 'Turi buti sveikasis skaicius'];
