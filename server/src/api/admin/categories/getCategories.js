@@ -1,10 +1,12 @@
-import { connection } from "../../db.js";
+import { connection } from "../../../db.js";
 
-export async function getPublicCategories(req, res) {
+export async function getAdminCategories(req, res) {
     try {
         const sql = `
-            SELECT *, 0 As moviesCount
-            FROM categories;`;
+            SELECT categories. *, 0 As moviesCount, general_status.name AS status_name
+            FROM categories
+            INNER JOIN general_status
+                ON categoires.status_id = general_status.id;`;
         const [categories] = await connection.execute(sql);
 
         return res.json({

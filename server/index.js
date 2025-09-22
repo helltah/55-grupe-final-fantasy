@@ -19,7 +19,6 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors({
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     origin: 'http://localhost:5520',
 }));
 app.use(cookieParser);
