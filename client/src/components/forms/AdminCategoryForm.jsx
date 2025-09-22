@@ -14,6 +14,7 @@ export function AdminCategoryForm({ category }) {
             headers: {
                 'Content-type': 'application/json',
             },
+            credentials: 'include', 
             body: JSON.stringify({
                 title,
                 url,
