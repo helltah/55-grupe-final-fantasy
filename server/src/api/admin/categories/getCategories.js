@@ -3,10 +3,10 @@ import { connection } from "../../../db.js";
 export async function getAdminCategories(req, res) {
     try {
         const sql = `
-            SELECT categories. *, 0 As moviesCount, general_status.name AS status_name
+            SELECT categories.*, 0 AS moviesCount, general_status.name AS status_name
             FROM categories
             INNER JOIN general_status
-                ON categoires.status_id = general_status.id;`;
+                ON categories.status_id = general_status.id;`;
         const [categories] = await connection.execute(sql);
 
         return res.json({
@@ -15,7 +15,7 @@ export async function getAdminCategories(req, res) {
         });
     } catch (error) {
         return res.json({
-            status: 'success',
+            status: 'error',
             categories: [],
         });
     }
