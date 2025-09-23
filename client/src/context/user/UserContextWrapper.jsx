@@ -27,6 +27,7 @@ export function UserContextWrapper(props) {
         setRole('admin');
         setEmail(email);
         setUserId(userId);
+        
     }
 
     function logout() {

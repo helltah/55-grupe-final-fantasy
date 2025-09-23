@@ -1,13 +1,35 @@
 import { PublicPageTitle } from '../../components/PublicPageTitle';
 import { MovieCard } from '../../components/MovieCard';
+import { useContext } from 'react';
+import { CategoriesContext } from '../../context/categories/CategoriesContext';
+import { useParams } from 'react-router'
 
 export function CategoryInnerPage() {
-    const moviesData = [{}, {}, {}];
+    const { publicCategories } = useContext(CategoriesContext);
+    const { category } = useParams();
+
+    const categoryData = publicCategories.find(c => c.url_slug === category);
+
+    if (!categoryData) {
+        
     return (
         <main className='min-page-height'>
-            <PublicPageTitle title='{{Category title}}' />
+            <PublicPageTitle title="Kategorija nerasta" />
 
-            <div>MOVIES FILTER</div>
+            <div className="container">
+                <div className="row">
+                   <p>Norima kategorija "{category}" neegzistuoja.</p>
+                </div>
+            </div>
+        </main>
+    );      
+    }
+
+    const moviesData = [{}, {}];
+
+    return (
+        <main className='min-page-height'>
+            <PublicPageTitle title={categoryData.title} />
 
             <div className="container">
                 <div className="row">

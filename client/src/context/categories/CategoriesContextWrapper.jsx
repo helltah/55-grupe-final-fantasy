@@ -9,7 +9,7 @@ export function CategoriesContextWrapper(props) {
 
     const { isLoggedIn } = useContext(UserContext);
 
-    useEffect(() => {
+    function updatePublicCategories() {
         fetch('http://localhost:5519/api/categories', {
             method: 'GET',
         })
@@ -20,10 +20,9 @@ export function CategoriesContextWrapper(props) {
                 }
             })
             .catch(console.error);
-    }, []);
+    }
 
-    useEffect(() => {
-        if (isLoggedIn) {
+     function updateAdminCategories() {
         fetch('http://localhost:5519/api/admin/categories', {
             method: 'GET',
             credentials: 'include',
@@ -35,24 +34,43 @@ export function CategoriesContextWrapper(props) {
                 }
             })
             .catch(console.error);
+    }
+
+    function deletePublicCategory(urlSlug) {
+        setPublicCategories(currentList => currentList.filter(c => c.url_slug !== urlSlug));
+    }
+
+    function deleteAdminCategory(urlSlug) {
+        setAdminCategories(currentList => currentList.filter(c => c.url_slug !== urlSlug));
+    }
+    
+    function getAdminCategoryByUrlSlug(url) {
+        return adminCategories.find(cat => cat.url_slug === url);
+    }
+    
+    function getPublicCategoryByUrlSlug(url) {
+        return publicCategories.find(cat => cat.url_slug === url);
+    }
+    
+    useEffect(updatePublicCategories, []);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            updateAdminCategories();
         } else {
             setAdminCategories(() => initialCategoriesContext.adminCategories);
         }
     }, [isLoggedIn]);
-
-    function getPublicCategoryByUrlSlug(url) {
-        return publicCategories.find(cat => cat.url_slug === url);
-    }
-
-    function getAdminCategoryByUrlSlug(url) {
-        return adminCategories.find(cat => cat.url_slug === url);
-    }
 
     const values = {
         publicCategories,
         adminCategories,
         getPublicCategoryByUrlSlug,
         getAdminCategoryByUrlSlug,
+        updateAdminCategories,
+        updatePublicCategories,
+        deletePublicCategory,
+        deleteAdminCategory,
     };
 
     return (
