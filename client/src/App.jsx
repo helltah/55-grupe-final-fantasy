@@ -25,12 +25,14 @@ import { AdminMoviesDraftPage } from './pages/admin/movies/MoviesDraft';
 import { LogoutPage } from './pages/public/Logout';
 import { UserContextWrapper } from './context/user/UserContextWrapper';
 import { CategoriesContextWrapper } from './context/categories/CategoriesContextWrapper';
+import { MoviesContextWrapper } from './context/movies/MoviesContextWrapper';
 
 export function App() {
   return (
     <UserContextWrapper>
       <CategoriesContextWrapper>
-        <BrowserRouter>
+        <MoviesContextWrapper>
+          <BrowserRouter>
           <Routes>
             <Route element={<PublicLayout />}>
               <Route path='/' index element={<HomePage />} />
@@ -65,7 +67,8 @@ export function App() {
               <Route path='*' element={<NotFoundPage />} />
             </Route>
           </Routes>
-        </BrowserRouter>
+          </BrowserRouter>
+        </MoviesContextWrapper>
       </CategoriesContextWrapper>
     </UserContextWrapper>
   );
