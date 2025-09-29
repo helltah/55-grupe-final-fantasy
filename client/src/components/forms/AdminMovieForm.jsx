@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import defaultImg from '../../assets/default.png';
+import { useContext } from 'react';
+import { CategoriesContext } from '../../context/categories/CategoriesContext';
 
 export function AdminMovieForm({ movie }) {
+    const { adminCategories } = useContext(CategoriesContext);
+
     const [img, setImg] = useState(movie?.img ?? '');
     const [title, setTitle] = useState(movie?.title ?? '');
     const [url, setUrl] = useState(movie?.url ?? '');
@@ -13,11 +17,7 @@ export function AdminMovieForm({ movie }) {
     const [rating, setRating] = useState(movie?.rating ?? 50);
     const [status, setStatus] = useState(movie?.status ?? 'draft');
 
-    const categories = [
-        {id: 1, name: 'Action'},
-        {id: 2, name: 'Crime'},
-        {id: 3, name: 'Documentary'},
-    ];
+   
 
     return (
          <>
@@ -62,7 +62,7 @@ export function AdminMovieForm({ movie }) {
                     <label htmlFor="category" className="form-label">Category</label>
                     <select onChange={e => setCategoryId(e.target.value)} value={categoryId} className="form-select" id="category"> 
                         <option value="-- choose">-- choose</option>
-                        {categories.map(cat => <option  key={cat.id} value={cat.name}>{cat.name}</option>)}
+                        {adminCategories.map(cat => <option  key={cat.id} value={cat.name}>{cat.title}</option>)}
                     </select>  
                 </div>
                 <div className="mb-3">
