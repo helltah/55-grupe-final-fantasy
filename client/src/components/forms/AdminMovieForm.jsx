@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import defaultImg from '../../assets/default.png';
-import { useContext } from 'react';
 import { CategoriesContext } from '../../context/categories/CategoriesContext';
 import { SERVER_ADDRESS } from '../../env';
 
@@ -13,32 +12,58 @@ export function AdminMovieForm({ movie }) {
     const [description, setDescription] = useState(movie?.description ?? '');
     const [hours, setHours] = useState(movie?.duration ? (movie.duration - movie.duration % 60) / 60 : 0);
     const [minutes, setMinutes] = useState(movie?.duration ? movie.duration % 60 : 0);
-    const [categoryId, setCategoryId] = useState(movie?.categoryId ?? '-- choose') ;
-    const [realeaseDate, setRealeaseDate] = useState(movie?.realeaseDate ?? '');
+    const [categoryId, setCategoryId] = useState(movie?.categoryId ?? 0);
+    const [releaseDate, setReleaseDate] = useState(movie?.releaseDate ?? '');
     const [rating, setRating] = useState(movie?.rating ?? 50);
     const [status, setStatus] = useState(movie?.status ?? 'draft');
 
+    const duration = hours * 60 + minutes;
+
     function handleImageFormSubmit(e) {
         e.preventDefault();
+        console.log('image upload...');
     }
 
     function handleMainFormSubmit(e) {
         e.preventDefault();
 
-        fetch(SERVER_ADDRESS + 'api/admin/movies', {
-            method: 'POST'
+        const data = {
+            title,
+            url,
+            duration,
+            category: categoryId,
+            status,
+            rating,
+        };
 
+        if (description) {
+            data.description = description;
+        }
+        if (img) {
+            data.img = img;
+        }
+        if (releaseDate) {
+            data.releaseDate = releaseDate;
+        }
+
+        fetch(SERVER_ADDRESS + '/api/admin/movies', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify(data),
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
             })
-            .catch(console.error);  
+            .catch(console.error);
     }
-    
+
     return (
-         <>
-            <form onSubmit={handleImageFormSubmit} className="col-12 col-md-9 col-lg-6 mb-5">
+        <>
+            <form onSubmit={handleImageFormSubmit} className="col-12 col-md-9 col-lg-6 mt-5">
                 <img id="img_preview" className="d-block w-100 object-fit-contain"
                     style={{ height: '20rem', backgroundColor: '#eee' }}
                     src={img ? img : defaultImg} alt="Movie thumbnail" />
@@ -46,7 +71,7 @@ export function AdminMovieForm({ movie }) {
                 <input type="file" className="form-control" id="img" name="img" />
             </form>
 
-            <form onSubmit={handleMainFormSubmit} className="col-12 col-md-9 col-lg-6 mb-5">
+            <form onSubmit={handleMainFormSubmit} className="col-12 col-md-9 col-lg-6 mt-5">
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
                     <input onChange={e => setTitle(e.target.value)} value={title}
@@ -77,35 +102,32 @@ export function AdminMovieForm({ movie }) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select onChange={e => setCategoryId(e.target.value)} value={categoryId} className="form-select" id="category"> 
-                        <option value="-- choose">-- choose</option>
-                        {adminCategories.map(cat => <option  key={cat.id} value={cat.name}>{cat.title}</option>)}
-                    </select>  
+                    <select onChange={e => setCategoryId(e.target.value)} value={categoryId} className="form-select" id="category">
+                        <option value={0}>-- choose</option>
+                        {adminCategories.map(cat => <option key={cat.id} value={cat.id}>{cat.title}</option>)}
+                    </select>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="release_date" className="form-label">Release date</label>
-                    <input onChange={e => { 
-                        setRealeaseDate(e.target.value)
-                    }} value={realeaseDate} type="date" className="form-control" id="release_date" />
+                    <input onChange={e => setReleaseDate(e.target.value)} value={releaseDate} type="date" className="form-control" id="release_date" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="rating" className="form-label">Rating</label>
                     <input onChange={e => setRating(e.target.value * 10)} value={rating / 10} type="number" min="1" max="5" step="0.1" className="form-control" id="rating" />
                 </div>
-                 <div className="mb-3">
+                <div className="mb-3">
                     <label className="form-label">Status</label>
                     <div className="form-check">
-                        <input onChange={() => setStatus('published')} checked={status === 'published' ? 'checked' : movie?.img ?? ''} type="radio" name="radios" className="form-check-input" id="status_published" />
+                        <input onChange={() => setStatus('published')} checked={status === 'published' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_published" />
                         <label className="form-check-label" htmlFor="status_published">Published</label>
                     </div>
                     <div className="form-check">
-                        <input onChange={() => setStatus('draft')} checked={status === 'draft' ? 'checked' : movie?.img ?? ''} type="radio" name="radios" className="form-check-input" id="status_draft" />
+                        <input onChange={() => setStatus('draft')} checked={status === 'draft' ? 'checked' : ''} type="radio" name="radios" className="form-check-input" id="status_draft" />
                         <label className="form-check-label" htmlFor="status_draft">Draft</label>
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary">Create</button>
             </form>
         </>
-    
     );
 }
