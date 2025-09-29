@@ -52,6 +52,10 @@ export function MoviesContextWrapper(props) {
         return adminMovies.find(movie => movie.url_slug === urlSlug);
     }
 
+    function getAdminMovieById(urlSlug) {
+        return adminMovies.find(movie => movie.url_slug === urlSlug);
+    }
+
     useEffect(updatePublicMovies, []);
 
     useEffect(() => {
@@ -67,6 +71,7 @@ export function MoviesContextWrapper(props) {
         adminMovies,
         getPublicMovieByUrlSlug,
         getAdminMovieByUrlSlug,
+        getAdminMovieById,
         updatePublicMovies,
         updateAdminMovies,
         deletePublicMovie,
