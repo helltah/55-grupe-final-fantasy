@@ -35,7 +35,7 @@ export function AdminMovieForm({ movie }) {
             })
             .catch(console.error);  
     }
-
+    
     return (
          <>
             <form onSubmit={handleImageFormSubmit} className="col-12 col-md-9 col-lg-6 mb-5">
