@@ -34,11 +34,19 @@ export function AdminViewMovieTable({ movieData }) {
                 </tr>
                 <tr className="mb-3">
                     <td>Duration</td>
-                    <td>{formatDuration(movieData.duration_in_minutes)}</td>
+                    <td>{
+                        movieData.duration_in_minutes
+                            ? formatDuration(movieData.duration_in_minutes)
+                            : <span className="badge text-bg-warning"> Not selected</span>
+                    }</td>
                 </tr>
                 <tr className="mb-3">
                     <td>Category</td>
-                    <td>{categoryData ? categoryData.title : '-'}</td>
+                    <td>{
+                        categoryData
+                            ? categoryData.title 
+                            : <span className="badge text-bg-warning"> Not selected</span>
+                    }</td>
                 </tr>
                 <tr className="mb-3">
                     <td>Release date</td>

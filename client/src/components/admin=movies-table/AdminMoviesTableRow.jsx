@@ -20,6 +20,13 @@ export function AdminMoviesTableRow({ data }) {
             <td><Link to={"/admin/movies/" + data.url_slug}>{data.title}</Link></td>
             <td><span className="badge text-bg-success">Provided</span></td>
             <td>{formatDuration(data.duration_in_minutes)}</td>
+            <td>{
+                data.duration_in_minutes
+                    ? formatDuration(data.duration_in_minutes)
+                    : <span className="badge text-bg-warning"> Not selected</span>
+            
+            }</td>
+           
             <td>
                 {
                     data.category_id
