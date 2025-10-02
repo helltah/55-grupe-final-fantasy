@@ -4,7 +4,7 @@ import { IsValid } from "../../../lib/IsValid.js";
 export async function postAdminMovies(req, res) {
     const [err, msg] = IsValid.fields(req.body, {
         title: 'nonEmptyString',
-        url: 'nonEmptyString',
+        url: 'url',
         duration: 'numberInteger',
         category: 'numberInteger',
         status: 'nonEmptyString',
